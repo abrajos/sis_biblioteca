@@ -2,10 +2,19 @@
 /**
 *@package pXP
 *@file gen-ACTDocumento.php
-*@author  (admin)
+*@author  (Jose)
 *@date 14-04-2026 03:20:49
 *@description Clase que recibe los parametros enviados por la vista para mandar a la capa de Modelo
 */
+require_once(dirname(__FILE__) . '/../../lib/tcpdf/tcpdf_barcodes_2d.php');
+require_once(dirname(__FILE__) . '/../reporte/RReportes.php');
+
+require_once(dirname(__FILE__) . '/../../lib/PHPWord-master/src/PhpWord/Autoloader.php');
+\PhpOffice\PhpWord\Autoloader::register();
+
+
+require_once(dirname(__FILE__).'/../reporte/RCodigoQRCORR.php');
+
 
 class ACTDocumento extends ACTbase{    
 			
@@ -39,7 +48,22 @@ class ACTDocumento extends ACTbase{
 		$this->res=$this->objFunc->eliminarDocumento($this->objParam);
 		$this->res->imprimirRespuesta($this->res->generarJson());
 	}
-			
+	
+	function subirDocumento()
+    {
+        //crea el objetoFunSeguridad que contiene todos los metodos del sistema de seguridad
+        $this->objFunSeguridad = $this->create('MODDocumento');
+        $this->res = $this->objFunSeguridad->subirDocumento($this->objParam);
+        //imprime respuesta en formato JSON
+        $this->res->imprimirRespuesta($this->res->generarJson());
+
+    }
+	function verDocumento()
+    {
+        $this->objFunc = $this->create('MODDocumento');
+        $this->res = $this->objFunc->verDocumento();
+        $this->res->imprimirRespuesta($this->res->generarJson());
+    }
 }
 
 ?>

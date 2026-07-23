@@ -1,8 +1,13 @@
-CREATE OR REPLACE FUNCTION "biblio"."ft_documento_ime" (	
-				p_administrador integer, p_id_usuario integer, p_tabla character varying, p_transaccion character varying)
-RETURNS character varying AS
-$BODY$
+--------------- SQL ---------------
 
+CREATE OR REPLACE FUNCTION biblio.ft_documento_ime (
+  p_administrador integer,
+  p_id_usuario integer,
+  p_tabla varchar,
+  p_transaccion varchar
+)
+RETURNS varchar AS
+$body$
 /**************************************************************************
  SISTEMA:		Sistema de Biblioteca
  FUNCION: 		biblio.ft_documento_ime
@@ -71,12 +76,12 @@ BEGIN
 			v_parametros.fecha_documento,
 			v_parametros.metadatos,
 			'activo',
-			v_parametros.url,
-			v_parametros.id_documento_fk,
-			v_parametros.campo_auxiliar,
+			NULL,
+			NULL,
+			'vacio',
 			v_parametros.id_uo,
-			v_parametros.id_deposito,
-			v_parametros.contenedor,
+			null,
+			NULL,
 			v_parametros.descripcion,
 			v_parametros.tipo_documento,
 			p_id_usuario,
@@ -116,12 +121,12 @@ BEGIN
 			codigo = v_parametros.codigo,
 			fecha_documento = v_parametros.fecha_documento,
 			metadatos = v_parametros.metadatos,
-			url = v_parametros.url,
-			id_documento_fk = v_parametros.id_documento_fk,
-			campo_auxiliar = v_parametros.campo_auxiliar,
+			
+			id_documento_fk = null,
+			campo_auxiliar = 'vacio',
 			id_uo = v_parametros.id_uo,
-			id_deposito = v_parametros.id_deposito,
-			contenedor = v_parametros.contenedor,
+			id_deposito = NULL,
+			contenedor = null,
 			descripcion = v_parametros.descripcion,
 			tipo_documento = v_parametros.tipo_documento,
 			fecha_mod = now(),
@@ -138,7 +143,36 @@ BEGIN
             return v_resp;
             
 		end;
+	
+    /*********************************    
+ 	#TRANSACCION:  'BIBLIO_ARCH_MOD'
+ 	#DESCRIPCION:	Modificacion de registros
+ 	#AUTOR:		admin	
+ 	#FECHA:		14-04-2026 03:20:49
+	***********************************/
 
+	elsif(p_transaccion='BIBLIO_ARCH_MOD')then
+
+		begin
+			--Sentencia de la modificacion
+			update biblio.tdocumento set
+			url = v_parametros.url,
+			campo_auxiliar = 'archivo',
+			fecha_mod = now(),
+			id_usuario_mod = p_id_usuario,
+			id_usuario_ai = v_parametros._id_usuario_ai,
+			usuario_ai = v_parametros._nombre_usuario_ai
+			where id_documento=v_parametros.id_documento;
+               
+			--Definicion de la respuesta
+            v_resp = pxp.f_agrega_clave(v_resp,'mensaje','Documentos modificado(a)'); 
+            v_resp = pxp.f_agrega_clave(v_resp,'id_documento',v_parametros.id_documento::varchar);
+               
+            --Devuelve la respuesta
+            return v_resp;
+            
+		end;
+    
 	/*********************************    
  	#TRANSACCION:  'BIBLIO_docum_ELI'
  	#DESCRIPCION:	Eliminacion de registros
@@ -178,7 +212,9 @@ EXCEPTION
 		raise exception '%',v_resp;
 				        
 END;
-$BODY$
-LANGUAGE 'plpgsql' VOLATILE
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
 COST 100;
-ALTER FUNCTION "biblio"."ft_documento_ime"(integer, integer, character varying, character varying) OWNER TO postgres;

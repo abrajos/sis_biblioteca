@@ -2,7 +2,7 @@
 /**
 *@package pXP
 *@file gen-ACTUbicacion.php
-*@author  (admin)
+*@author  (Jose)
 *@date 14-04-2026 03:20:53
 *@description Clase que recibe los parametros enviados por la vista para mandar a la capa de Modelo
 */

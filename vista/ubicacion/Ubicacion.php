@@ -2,7 +2,7 @@
 /**
 *@package pXP
 *@file gen-Ubicacion.php
-*@author  (admin)
+*@author  (Jose)
 *@date 14-04-2026 03:20:53
 *@description Archivo con la interfaz de usuario que permite la ejecucion de todas las funcionalidades del sistema
 */
@@ -34,25 +34,25 @@ Phx.vista.Ubicacion=Ext.extend(Phx.gridInterfaz,{
 		{
 			config: {
 				name: 'id_lugar',
-				fieldLabel: 'id_lugar',
+				fieldLabel: 'Lugar',
 				allowBlank: false,
 				emptyText: 'Elija una opción...',
 				store: new Ext.data.JsonStore({
-					url: '../../sis_/control/Clase/Metodo',
-					id: 'id_',
+					url: '../../sis_parametros/control/Lugar/listarLugar',
+					id: 'id_lugar',
 					root: 'datos',
 					sortInfo: {
 						field: 'nombre',
 						direction: 'ASC'
 					},
 					totalProperty: 'total',
-					fields: ['id_', 'nombre', 'codigo'],
+					fields: ['id_lugar', 'nombre', 'codigo'],
 					remoteSort: true,
-					baseParams: {par_filtro: 'movtip.nombre#movtip.codigo'}
+					baseParams: {par_filtro: 'lug.nombre#lug.codigo'}
 				}),
-				valueField: 'id_',
+				valueField: 'id_lugar',
 				displayField: 'nombre',
-				gdisplayField: 'desc_',
+				gdisplayField: 'nombre',
 				hiddenName: 'id_lugar',
 				forceSelection: true,
 				typeAhead: false,
@@ -65,12 +65,12 @@ Phx.vista.Ubicacion=Ext.extend(Phx.gridInterfaz,{
 				gwidth: 150,
 				minChars: 2,
 				renderer : function(value, p, record) {
-					return String.format('{0}', record.data['desc_']);
+					return String.format('{0}', record.data['nombre']);
 				}
 			},
 			type: 'ComboBox',
 			id_grupo: 0,
-			filters: {pfiltro: 'movtip.nombre',type: 'string'},
+			filters: {pfiltro: 'lug.nombre',type: 'string'},
 			grid: true,
 			form: true
 		},
@@ -89,25 +89,11 @@ Phx.vista.Ubicacion=Ext.extend(Phx.gridInterfaz,{
 				grid:true,
 				form:false
 		},
-		{
-			config:{
-				name: 'observacion',
-				fieldLabel: 'observacion',
-				allowBlank: true,
-				anchor: '80%',
-				gwidth: 100,
-				maxLength:500
-			},
-				type:'TextField',
-				filters:{pfiltro:'ubica.observacion',type:'string'},
-				id_grupo:1,
-				grid:true,
-				form:true
-		},
+		
 		{
 			config:{
 				name: 'oficina',
-				fieldLabel: 'oficina',
+				fieldLabel: 'Oficina',
 				allowBlank: false,
 				anchor: '80%',
 				gwidth: 100,
@@ -122,7 +108,7 @@ Phx.vista.Ubicacion=Ext.extend(Phx.gridInterfaz,{
 		{
 			config:{
 				name: 'nivel',
-				fieldLabel: 'nivel',
+				fieldLabel: 'Nivel',
 				allowBlank: true,
 				anchor: '80%',
 				gwidth: 100,
@@ -137,7 +123,7 @@ Phx.vista.Ubicacion=Ext.extend(Phx.gridInterfaz,{
 		{
 			config:{
 				name: 'estante',
-				fieldLabel: 'estante',
+				fieldLabel: 'Estante',
 				allowBlank: true,
 				anchor: '80%',
 				gwidth: 100,
@@ -145,6 +131,21 @@ Phx.vista.Ubicacion=Ext.extend(Phx.gridInterfaz,{
 			},
 				type:'TextField',
 				filters:{pfiltro:'ubica.estante',type:'string'},
+				id_grupo:1,
+				grid:true,
+				form:true
+		},
+		{
+			config:{
+				name: 'observacion',
+				fieldLabel: 'Observación',
+				allowBlank: true,
+				anchor: '80%',
+				gwidth: 100,
+				maxLength:500
+			},
+				type:'TextField',
+				filters:{pfiltro:'ubica.observacion',type:'string'},
 				id_grupo:1,
 				grid:true,
 				form:true
@@ -264,7 +265,7 @@ Phx.vista.Ubicacion=Ext.extend(Phx.gridInterfaz,{
 		{name:'id_usuario_mod', type: 'numeric'},
 		{name:'usr_reg', type: 'string'},
 		{name:'usr_mod', type: 'string'},
-		
+		{name:'nombre', type: 'string'},
 	],
 	sortInfo:{
 		field: 'id_ubicacion',

@@ -2,7 +2,7 @@
 /**
 *@package pXP
 *@file gen-MODUbicacion.php
-*@author  (admin)
+*@author  (Jose)
 *@date 14-04-2026 03:20:53
 *@description Clase que envia los parametros requeridos a la Base de datos para la ejecucion de las funciones, y que recibe la respuesta del resultado de la ejecucion de las mismas
 */
@@ -35,6 +35,7 @@ class MODUbicacion extends MODbase{
 		$this->captura('id_usuario_mod','int4');
 		$this->captura('usr_reg','varchar');
 		$this->captura('usr_mod','varchar');
+		$this->captura('nombre','varchar');
 		
 		//Ejecuta la instruccion
 		$this->armarConsulta();
