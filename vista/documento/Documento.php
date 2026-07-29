@@ -164,14 +164,14 @@ Phx.vista.Documento=Ext.extend(Phx.gridInterfaz,{
 						direction: 'ASC'
 					},
 					totalProperty: 'total',
-					fields: ['id_ubicacion', 'oficina','observacion'],
+					fields: ['id_ubicacion', 'oficina','nombre'],
 					remoteSort: true,
 					baseParams: {par_filtro: 'ubica.oficina#ubica.estante'}
 				}),
 				valueField: 'id_ubicacion',
 				displayField: 'oficina',
 				gdisplayField: 'oficina',
-				tpl:'<tpl for="."><div class="x-combo-list-item"><p>{oficina}</p><p>Lugar:{nombre}</p> </div></tpl>',
+				tpl:'<tpl for="."><div class="x-combo-list-item"><p>Oficina: {oficina}</p><p>Lugar:{nombre}</p> </div></tpl>',
 				hiddenName: 'id_ubicacion',
 				forceSelection: true,
 				typeAhead: false,
