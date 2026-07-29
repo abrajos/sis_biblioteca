@@ -171,7 +171,7 @@ Phx.vista.Documento=Ext.extend(Phx.gridInterfaz,{
 				valueField: 'id_ubicacion',
 				displayField: 'oficina',
 				gdisplayField: 'oficina',
-				tpl:'<tpl for="."><div class="x-combo-list-item"><p>{oficina}</p><p>Estante:{estante}</p> </div></tpl>',
+				tpl:'<tpl for="."><div class="x-combo-list-item"><p>{oficina}</p><p>Lugar:{nombre}</p> </div></tpl>',
 				hiddenName: 'id_ubicacion',
 				forceSelection: true,
 				typeAhead: false,
