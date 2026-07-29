@@ -171,6 +171,7 @@ Phx.vista.Documento=Ext.extend(Phx.gridInterfaz,{
 				valueField: 'id_ubicacion',
 				displayField: 'oficina',
 				gdisplayField: 'oficina',
+				tpl:'<tpl for="."><div class="x-combo-list-item"><p>{oficina}</p><p>Estante:{estante}</p> </div></tpl>',
 				hiddenName: 'id_ubicacion',
 				forceSelection: true,
 				typeAhead: false,
@@ -376,14 +377,20 @@ Phx.vista.Documento=Ext.extend(Phx.gridInterfaz,{
 				fieldLabel: 'Tipo Documento',
 				allowBlank: false,
 				anchor: '80%',
+				origen: 'CATALOGO',
+				gdisplayField: 'accion',
 				gwidth: 100,
-				maxLength:500
+				baseParams:{
+						cod_subsistema:'BIBLIO',
+						catalogo_tipo:'tdocumento__tipo_documento'
+				},
+				renderer:function (value, p, record){return String.format('{0}', record.data['accion']);}
 			},
-				type:'TextField',
-				filters:{pfiltro:'docum.tipo_documento',type:'string'},
-				id_grupo:1,
-				grid:true,
-				form:true
+			type: 'ComboRec',
+			id_grupo: 6,
+			filters:{pfiltro:'docum.tipo_documento',type:'string'},
+			grid: true,
+			form: true
 		},
 		{
 			config:{
