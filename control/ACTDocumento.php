@@ -16,6 +16,7 @@ require_once(dirname(__FILE__) . '/../../lib/PHPWord-master/src/PhpWord/Autoload
 require_once(dirname(__FILE__).'/../reporte/RCodigoQRCORR.php');
 
 
+#[\AllowDynamicProperties]
 class ACTDocumento extends ACTbase{    
 			
 	function listarDocumento(){

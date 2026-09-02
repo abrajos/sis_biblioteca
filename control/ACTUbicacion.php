@@ -7,6 +7,7 @@
 *@description Clase que recibe los parametros enviados por la vista para mandar a la capa de Modelo
 */
 
+#[\AllowDynamicProperties]
 class ACTUbicacion extends ACTbase{    
 			
 	function listarUbicacion(){
